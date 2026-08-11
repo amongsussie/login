@@ -314,9 +314,19 @@
   </div>
 
   <script>
-    const VALID_USER = "Admin";
-    const VALID_PASS = "123";
-    const REDIRECT_URL = "https://classroom.studentportal.workers.dev/";
+    // Two working accounts
+    const ACCOUNTS = [
+      {
+        username: "Admin",
+        password: "123",
+        redirect: "https://classroom.studentportal.workers.dev/"
+      },
+      {
+        username: "Student",
+        password: "123",
+        redirect: "https://homework.studentportal.workers.dev/"
+      }
+    ];
 
     function togglePassword() {
       const input = document.getElementById("password");
@@ -330,9 +340,13 @@
       const password = document.getElementById("password").value;
       const errorEl = document.getElementById("error");
 
-      if (username === VALID_USER && password === VALID_PASS) {
+      const account = ACCOUNTS.find(
+        acc => acc.username.toLowerCase() === username.toLowerCase() && acc.password === password
+      );
+
+      if (account) {
         errorEl.style.display = "none";
-        window.location.href = REDIRECT_URL;
+        window.location.href = account.redirect;
       } else {
         errorEl.style.display = "block";
         document.getElementById("password").value = "";
